@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+<script>
+    function validation()
+       {    
+        
+        var name=document.getElementById("first_name").value;
+        var username=document.getElementById("username").value;
+        var email=document.getElementById("email").value;
+        var password1=document.getElementById("password1").value;
+        var password2=document.getElementById("password2").value;
+        if(name=="")
+            {
+                alert("Name cannot be empty");
+                return false;
+            }
+        else if(username=="")
+            {
+                alert("Username cannot be empty");
+                return false;
+            }
+        else if(email=="")
+            {
+                alert("Email cannot be empty");
+                return false;
+            } 
+        else if(password1=="")
+            {
+                alert("Password cannot be empty");
+                return false;
+            }
+        else if(password1!=password2)
+            {
+                alert("Passwords are not matching");
+                return false;
+            } 
+        
+
+        else
+        {
+        
+        return true;
+
+        }
+        
+       }
+    </script>
+
+{% block content %}
+{% if submitted %}
+    You have succefully register
+{% else %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <form onsubmit="return validation()"  action="register"   method="post">
+        {% csrf_token %}
+    
+        <input type="text"  name="first_name" id="first_name" placeholder="First Name" ><br>
+        <input type="text" name="last_name" placeholder="Last Name"><br>
+        <input type="text" id="username" name="username"  placeholder="Username"><br>
+        <input type="email" id="email" name="email" placeholder="Email"><br>
+        <input type="password" id="password1" name="password1" placeholder="Password"><br>
+        <input type="password" id="password2" name="password2" placeholder="Confirm Password"><br>
+        <button type="submit">submit</button>
+    </form>
+
+    {% for message in messages%}
+    <div>
+        <h2>{{message}}</h2>
+    </div>
+    {% endfor %}
+    
+
+</form>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% load static %}
+    {% if user.is_authenticated %}
+      <center>
+     <div class="card" style="width: 18rem;">
+      {% if doctor.profilePicture %}
+       <img src="{{doctor.profilePicture.url}}" alt="this is image">
+      {% endif %}
+       <div class="card-body">
+          <h5 class="card-title">{{doctor}}</h5>
+          <h6 class="card-text">{{doctor.speciality}}</h6> 
+          Age: {{doctor.age}} <br>
+            Mobile No: {{doctor.mobNum}} <br>
+            City: {{doctor.city}} <br>
+            {% if doctor.availability %}
+                Availability: Yes <br> <br>
+            {% else %}
+                <p class="card-text">Availability: No</p> <br>
+            {% endif %}
+            <ul id="menu" style="display: inline;"></ul>
+            {% for slot in slots %}
+                <li>{{slot.time}}</li>
+                
+              
+            {% endfor %}
+        </ul> 
+
+          <a href="{% url 'edit-profile' doctor.id %}" class="btn btn-primary">Edit Profile</a>
+        </div>
+      </div>
+      <br>
+</center>
+{% else %}
+<h1>Please Login to continue</h1>
+
+{% endif %}
+    
+
+{% endblock %}

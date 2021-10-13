@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <input type="date" name="date" id="" value="{{date}}">
+    <input type="submit" >
+</form>
+    <h1>Choose a slot </h1>
+{% if dated %}
+<form action="{% url 'appoint' %}" method="POST">
+    {% csrf_token %}
+    <select id="slot" name="slot"  class="form-select" aria-label="size 3 select example">
+        <option selected>Choose a appointment</option>
+        {% for slot in slots %}  
+        <option value="{{slot.id}}">{{slot}}</option>
+        {% endfor %}
+    </select>
+    <input type="date" name="date" value={{date}} style="visibility:hidden">
+    <input type="text" name="doctor_id" value={{doctor.id}} style="visibility:hidden">
+    <input type="submit" class="btn btn-secondary" name="" id="">
+</form>
+{% endif %}
+
+{% endblock %}

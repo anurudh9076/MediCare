@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% if searched %}
+{% load static %}
+{% for doctor in doctors %}
+      <center>
+          
+
+     <div class="card" style="width: 18rem;">
+      {% if doctor.profilePicture %}
+       <img src="{{doctor.profilePicture.url}}" alt="this is image">
+      {% endif %}
+       <div class="card-body">
+          <h5 class="card-title">{{doctor}}</h5>
+          <h6 class="card-text">{{doctor.speciality}}</h6> 
+          Age: {{doctor.age}} <br>
+            Mobile No: {{doctor.mobNum}} <br>
+            City: {{doctor.city}} <br>
+            {% if doctor.availability %}
+                Availability: Yes <br> <br>
+            {% else %}
+                <p class="card-text">Availability: No</p> <br>
+            {% endif %}
+
+          <a href="{% url 'make-appointment' doctor.id %}" class="btn btn-primary">Make an Appointment</a>
+        </div>
+      </div>
+      <br>
+{% endfor %}
+</center>
+{% else %}
+<h1>Please select a city or speciality </h1>
+
+{% endif %}
+    
+
+{% endblock %}

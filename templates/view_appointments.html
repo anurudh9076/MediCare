@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% if user.is_patient %}
+    
+{% for appointment in appointments %}
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{appointment.doctor.profilePicture.url}}" style="height:170px;  width:170px" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{appointment.doctor.user.first_name}} {{appointment.doctor.user.last_name}}</h5>
+          <p class="card-text">{{appointment.date}} {{appointment.slot}}</p>
+          <p class="card-text"></p>
+        
+          {% if appointment.cancelled_by_doctor %}
+          <h5>Status:<p class="badge bg-danger text-dark"> Cancelled By Doctor</p> </h5>
+        {% elif appointment.cancelled_by_patient %}
+        <h5>Status:<p class="badge bg-danger text-dark"> Cancelled By You</p> </h5>
+        {% else %}
+        <h5>Status:<p class="badge bg-warning text-dark"> {{appointment.status}}</p> </h5>
+        {% endif %}
+          
+          {% if appointment.editable %}
+          <a class="btn btn-danger" href="{% url 'cancel-appointment' appointment.id %}">Cancel</a>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+    
+
+{% endfor %}
+{% elif user.is_doctor %}
+<table class="table table-striped">
+    <thead class="thead-dark " >
+      <tr>
+        <!-- <th scope="col">Serial No.</th> -->
+        <th scope="col">Patient</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for appointment in appointments %}
+          <td>{{appointment.patient.first_name}} {{appointment.patient.last_name}}</td>
+          <td>{{appointment.date}} </td>
+          <td>{{appointment.slot}}</td>
+        {% if appointment.cancelled_by_doctor %}
+        <td class="badge bg-danger" >Cancelled by You</td>
+        {% elif appointment.cancelled_by_patient %}
+          <td class="badge bg-danger">Cancelled by Patient</td>
+        {% else %}
+          <td>{{appointment.status}}
+              {% if appointment.editable %}
+            <a href="{% url 'done-appointment' appointment.id %}"class="btn btn-success">Done</a><a href="{% url 'cancel-appointment' appointment.id %}" class="btn btn-danger">Cancel</a>
+            {% endif %}  
+          </td>
+
+
+        
+          {% endif %}
+        
+        
+      </tr>
+      {% endfor %}  
+    </tbody>
+  </table>
+
+{% endif %}
+
+{% endblock %}
