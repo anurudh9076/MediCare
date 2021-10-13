@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <h1>Search for Doctors </h1>
+
+    <form action="{%  url 'search-doctors' %}"  method="POST">
+        {% csrf_token %}
+        
+        <div >
+        <select id="city" name="city" type="search" class="form-select" aria-label="size 3 select example">
+            <option selected>select a city</option>
+            {% for city in cities %}  
+            <option value="{{city}}">{{city.name}}</option>
+            {% endfor %}
+        </select>
+        
+        <select id="speciality" name="speciality" class="form-select">
+            <option selected>select a speciality</option>
+            {% for speciality in sps %}  
+            <option value="{{speciality}}">{{speciality.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+  
+        <input type="submit" >
+  
+    </form>
+
+{% endblock %}
