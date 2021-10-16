@@ -71,6 +71,11 @@ class Appointment(models.Model):
     editable=models.BooleanField(default=True,blank=True,null=True)
     cancelled_by_doctor=models.BooleanField(default=False,blank=True,null=True)
     cancelled_by_patient=models.BooleanField(default=False,blank=True,null=True)
+    symptoms=models.CharField(max_length=500,blank=True)
+    test_report=models.FileField(upload_to='test_report/',blank=True,null=True)
+    special_note=models.CharField(max_length=500,blank=True)
+    prescription=models.CharField(max_length=500,blank=True)
+    
 
     def __str__(self):
         return self.doctor.user.first_name+" " +self.doctor.user.last_name+ ' ' +self.date.strftime("%m/%d/%Y") +' '+ self.slot.time.strftime("%H:%M %p")
