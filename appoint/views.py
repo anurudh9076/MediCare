@@ -98,8 +98,8 @@ def appoint(request):
         appointment.save()
         print("appointment created")
         #sending the emails to doctor and client
-        sender_address = 'dramigo9076@gmail.com'
-        sender_pass = 'Dramigo@12345'
+        sender_address = 'medicare9076@gmail.com'
+        sender_pass = 'Medicare#54321'
         session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
         session.starttls() #enable security
         session.login(sender_address, sender_pass) #login with mail_id and password
