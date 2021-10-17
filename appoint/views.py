@@ -108,9 +108,9 @@ def appoint(request):
         message = MIMEMultipart()
         message['From'] = sender_address
         message['To'] = receiver_address
-        message['Subject'] = 'Appointment Of Dramigo'   #The subject line
+        message['Subject'] = 'Appointment Of MediCare'   #The subject line
         #The body and the attachments for the mail
-        mail_content='Hello '+request.user.first_name+'\n'+'you have booked an apppointment on Dramigo.'
+        mail_content='Hello '+request.user.first_name+'\n'+'you have booked an apppointment on MediCare.'
         mail_content+='See below details\n'+'Doctor: '+doctor.user.first_name+' '+doctor.user.last_name
         mail_content+='\nDate: '+date + '\nTime: '+slot.time.strftime('%H:%M %p')+'.'
         message.attach(MIMEText(mail_content, 'plain'))
@@ -123,12 +123,12 @@ def appoint(request):
         message1 = MIMEMultipart()
         message1['From'] = sender_address 
         message1['To'] = receiver_address
-        message1['Subject'] = 'Appointment Of Dramigo'
+        message1['Subject'] = 'Appointment Of MediCare'
         
         
        
         mail_content=""
-        mail_content='Hello '+doctor.user.first_name+'\n'+'you have an apppointment on Dramigo.'
+        mail_content='Hello '+doctor.user.first_name+'\n'+'you have an apppointment on MediCare.'
         mail_content+='See below details\n'+'Patient: '+request.user.first_name+' '+request.user.last_name
         mail_content+='\nDate: '+date + '\nTime: '+slot.time.strftime('%H:%M %p')+'.'
         message1.attach(MIMEText(mail_content, 'plain'))
