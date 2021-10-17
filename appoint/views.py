@@ -22,6 +22,7 @@ def view_profile(request):
         return render(request,'view_profile.html',{'doctor':doctor,'slots':slots})
 
 
+
 def done_appointment(request,app_id):
     user=request.user
     if user is None:
@@ -162,7 +163,7 @@ def make_appointment(request,doctor_id):
 
 
 
-def doctor_profile(request):
+def edit_profile(request):
     user=request.user
     if not user.is_doctor:
         redirect('home')
@@ -172,9 +173,9 @@ def doctor_profile(request):
     if form.is_valid():
         form.save()
         messages.info(request,'Details Updated Successfully')
-        return redirect('doctor-profile')
+        return redirect('edit-profile')
 
-    return render (request,'doctor_profile.html',{'form':form,'user':user,'form1':form1})
+    return render (request,'edit_profile.html',{'form':form,'user':user,'form1':form1})
 
 
 def login(request,des):
