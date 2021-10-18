@@ -19,7 +19,7 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="">hello {{ user.first_name }}</a>
           </li>
-          <a class="nav-link active" aria-current="page" href="{% url 'view-appointments' %}">appointments</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'list-appointments' %}">appointments</a>
           {% if user.is_doctor %}
             <a class="nav-link active" aria-current="page" href="{% url 'view-profile' %}">Profile</a>
             {% endif %}

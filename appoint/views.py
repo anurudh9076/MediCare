@@ -49,7 +49,11 @@ def cancel_appointment(request,app_id):
     appointment.editable=False
     appointment.save()
     return redirect('view-appointments')
-def view_appointments(request):
+
+def view_appointment(request,app_id):
+    return render(request,'view_appointment.html')
+
+def list_appointments(request):
     user=request.user
     if user is None:
         redirect('home')
@@ -70,7 +74,7 @@ def view_appointments(request):
                     ap.editable=False
 
             ap.save()             
-        return render(request,'view_appointments.html',{'appointments':appointments})
+        return render(request,'list_appointments.html',{'appointments':appointments})
     if user.is_patient:
         appointments=Appointment.objects.filter(patient=user.id).order_by('date')
         editable=[]
@@ -87,7 +91,7 @@ def view_appointments(request):
                     ap.editable=False
 
             ap.save()   
-        return render(request,'view_appointments.html',{'appointments':appointments})
+        return render(request,'list_appointments.html',{'appointments':appointments})
 
 def appoint(request):
     #doctor=Doctor.objects.get(id=doctor_id)
