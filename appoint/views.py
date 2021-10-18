@@ -241,6 +241,35 @@ def register(request,des):
                 print('hi_pat')
                 user.is_patient=True
                 user.save()
+
+            #sending mail on successfull registration
+            sender_address = 'medicare9076@gmail.com'
+            sender_pass = 'Medicare#54321'
+            session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+            session.starttls() #enable security
+            session.login(sender_address, sender_pass) #login with mail_id and password
+        
+            receiver_address=email
+            message = MIMEMultipart()
+            message['From'] = sender_address
+            message['To'] = receiver_address
+            message['Subject'] = 'Registration on MediCare'   #The subject line
+            #The body and the attachments for the mail
+            mail_content='Hello '+first_name+' '+last_name+' '+'you have Successfully registered on MediCare '
+            mail_content+='with username: '+username
+            if(des =='doctor'):
+                mail_content+=' as a doctor\n'
+            else:
+                mail_content+=' as a patient\n'
+
+            mail_content+='\nPlease click on the link given below for your confirmation and complete your profile.'
+            message.attach(MIMEText(mail_content, 'plain'))
+            #Create SMTP session for sending the mail
+            
+            text = message.as_string()
+            session.sendmail(sender_address, receiver_address, text)
+            session.quit()
+
             messages.info(request,'Successfully Registered')
             return redirect('login',des)
         else:
