@@ -295,12 +295,15 @@ def search_doctors(request):
     if request.method == "POST":
         if(request.POST['city'] == "select a city" and request.POST['speciality']=='select a speciality'):
             return render (request,'search_doctors.html',{'searched':False})
-        elif(request.POST['speciality']=='select a speciality'):
-            city=City.objects.get(name=request.POST['city'])
-            doctors = Doctor.objects.filter(city=city.id)
+        
         elif(request.POST['city'] == 'select a city'):
             speciality= Speciality.objects.get(name=request.POST['speciality'])
-            doctors = Doctor.objects.filter(city=speciality.id)
+            doctors = Doctor.objects.filter(speciality=speciality.id)
+       
+        elif(request.POST['speciality'] == 'select a speciality'):
+            city=City.objects.get(name=request.POST['city'])
+            doctors = Doctor.objects.filter(city=city.id)
+    
         else:
             city=City.objects.get(name=request.POST['city'])
             speciality= Speciality.objects.get(name=request.POST['speciality'])
